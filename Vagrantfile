@@ -1,64 +1,44 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# All Vagrant configuration is done below. The "2" in Vagrant.configure
-# configures the configuration version (we support older styles for
-# backwards compatibility). Please don't change it unless you know what
-# you're doing.
+# Toda la configuración de Vagrant se realiza a continuación. 
+# El "2" en Vagrant.configure
+# configura la versión de configuración (soportamos estilos más antiguos para compatibilidad al revés). 
+# Por favor, no lo cambies a menos que sepas qué estás haciendo.
 Vagrant.configure("2") do |config|
-  # The most common configuration options are documented and commented below.
-  # For a complete reference, please see the online documentation at
-  # https://docs.vagrantup.com.
-
-  # Every Vagrant development environment requires a box. You can search for
-  # boxes at https://vagrantcloud.com/search.
+  # Cada entorno de desarrollo de Vagrant requiere una caja. Puedes buscar
+  # cajas en https://vagrantcloud.com/search.
   config.vm.box = "generic/ubuntu2204"
 
-  # Disable automatic box update checking. If you disable this, then
-  # boxes will only be checked for updates when the user runs
-  # `vagrant box outdated`. This is not recommended.
+  # Deshabilite la verificación automática de actualizaciones de casillas. Si deshabilitas esto, entonces
+  # Solo se marcarán # casillas en busca de actualizaciones cuando el usuario ejecute `caja vagrant desactualizada`. Esto no es recomendable.
   config.vm.box_check_update = false
 
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine. In the example below,
-  # accessing "localhost:8080" will access port 80 on the guest machine.
-  # NOTE: This will enable public access to the opened port
+  # Cree una asignación de puertos reenviados que permita el acceso a un puerto específico dentro de la máquina desde un puerto en la máquina host. 
+  # En el siguiente ejemplo, al acceder a "localhost:8080" accederá al puerto 80 en la máquina invitada.
+  # NOTA: Esto habilitará el acceso público al puerto abierto
   config.vm.network "forwarded_port", guest: 80, host: 8080
 
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine and only allow access
-  # via 127.0.0.1 to disable public access
-  # config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
-
-  # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
+  # Cree una red privada, que permita el acceso de solo host a la máquina usando una IP específica.
   config.vm.network "private_network", ip: "192.168.11.10"
 
-  # Create a public network, which generally matched to bridged network.
-  # Bridged networks make the machine appear as another physical device on
-  # your network.
-  # config.vm.network "public_network"
+  # Comparta una carpeta adicional con la máquina virtual invitada. El primer argumento es
+  # la ruta en el host a la carpeta real. El segundo argumento es
+  # la ruta en el invitado para montar la carpeta. 
+  # el tercer argumento es opcional argumento es un conjunto de opciones no requeridas.
+  config.vm.synced_folder "../data", "/vagrant_data"
 
-  # Share an additional folder to the guest VM. The first argument is
-  # the path on the host to the actual folder. The second argument is
-  # the path on the guest to mount the folder. And the optional third
-  # argument is a set of non-required options.
-  # config.vm.synced_folder "../data", "/vagrant_data"
-
-  # Provider-specific configuration so you can fine-tune various
-  # backing providers for Vagrant. These expose provider-specific options.
-  # Example for VirtualBox:
-  #
+  # Configuración específica del proveedor para que pueda ajustar varios proveedores de respaldo para Vagrant. Estos exponen opciones específicas del proveedor.
+  # Ejemplo para VirtualBox:
   config.vm.provider "virtualbox" do |vb|
-    # Display the VirtualBox GUI when booting the machine
+    # Mostrar la GUI de VirtualBox al arrancar la máquina
     vb.gui = true
-    # Customize the amount of memory on the VM:
+    # Personaliza la cantidad de memoria en la VM:
     vb.memory = "1024"
+    # Personaliza la cantidad de CPUs en la VM:
     vb.cpus = 1
   end
-  #
-  # View the documentation for the provider you are using for more
-  # information on available options.
 
+  # Vea la documentación del proveedor que está utilizando para obtener más información sobre las opciones disponibles.
   config.vm.provision "shell", path: "provision_wordpres.sh"
 end
