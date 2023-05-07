@@ -1,1 +1,11 @@
-.vagrant
+# ignore build artifacts
+build/
+*.o
+*.a
+
+# ignore log files
+logs/*.log
+
+# ignore temporary files
+*.tmp
+*.vagrant/
