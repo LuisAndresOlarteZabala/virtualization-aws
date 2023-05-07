@@ -8,4 +8,4 @@ logs/*.log
 
 # ignore temporary files
 *.tmp
-*.vagrant/
+.vagrant/
