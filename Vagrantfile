@@ -8,7 +8,8 @@ Vagrant.configure("2") do |config|
   config.vm.box = "generic/ubuntu2204"
 
   # En este caso, el tamaño se establece en 8 GB. Esta configuración se aplica al momento de crear la máquina virtual y se refiere al espacio de almacenamiento disponible dentro de la máquina virtual. 
-  config.vm.disksize.size = "8GB"
+  vb.customize ['createhd', '--filename', 'nuevo_disco.vdi', '--size', 8200]
+  vb.customize ['storageattach', :id, '--storagectl', 'IDE Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', 'nuevo_disco.vdi']
 
   # Deshabilite la verificación automática de actualizaciones de casillas. Si deshabilitas esto, entonces
   # Solo se marcarán # casillas en busca de actualizaciones cuando el usuario ejecute `caja vagrant desactualizada`. Esto no es recomendable.
