@@ -7,10 +7,6 @@ Vagrant.configure("2") do |config|
   # cajas en https://vagrantcloud.com/search.
   config.vm.box = "generic/ubuntu2204"
 
-  # En este caso, el tamaño se establece en 8 GB. Esta configuración se aplica al momento de crear la máquina virtual y se refiere al espacio de almacenamiento disponible dentro de la máquina virtual. 
-  vb.customize ['createhd', '--filename', 'nuevo_disco.vdi', '--size', 8200]
-  vb.customize ['storageattach', :id, '--storagectl', 'IDE Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', 'nuevo_disco.vdi']
-
   # Deshabilite la verificación automática de actualizaciones de casillas. Si deshabilitas esto, entonces
   # Solo se marcarán # casillas en busca de actualizaciones cuando el usuario ejecute `caja vagrant desactualizada`. Esto no es recomendable.
   config.vm.box_check_update = false
@@ -21,7 +17,7 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 80, host: 8080
 
   # Cree una red privada, que permita el acceso de solo host a la máquina usando una IP específica.
-  config.vm.network "private_network", ip: "192.168.12.18"
+  config.vm.network "private_network", ip: "192.168.128.28"
 
   # Configuración específica del proveedor para que pueda ajustar varios proveedores de respaldo para Vagrant. Estos exponen opciones específicas del proveedor.
   # Ejemplo para VirtualBox:
