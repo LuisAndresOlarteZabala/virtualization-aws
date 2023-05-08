@@ -31,7 +31,7 @@ echo "<?php phpinfo(); ?>" > /var/www/html/info.php
 curl -I http://localhost/info.php
 
 # Verifica la conexión en una red local con el servidor PHP.
-curl -I http://192.168.12.118/info.php
+curl -I http://192.168.12.18/info.php
 
 # Inicia sesión en MariaDB como root.
 mysql -u root -p
